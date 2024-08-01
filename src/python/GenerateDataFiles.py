@@ -1,18 +1,18 @@
 import json 
 import random
-import xml.etree.cElementTree as ET
-from datetime import datetime
-from os import path, makedirs
+import os
+import xml.etree.ElementTree as ET
+import datetime
 
 def read_suburb_data(filename: str) -> dict[str,list[str]]:
-    with open(filename) as f:
+    with open(filename, encoding="utf8") as f:
         data = json.load(f)
         return data
 
 def create_xml_output(location: str, suburbs: list[str]) -> ET.ElementTree:
     root = ET.Element("Location", name = location)
-    start_date = datetime.strptime('1960-01-01', '%Y-%m-%d')
-    end_date = datetime.now()
+    start_date = datetime.datetime.strptime('1960-01-01', '%Y-%m-%d')
+    end_date = datetime.datetime.now()
 
     for s in suburbs:
         suburb_xml = ET.SubElement(root, "Suburb", name = s)
@@ -24,11 +24,12 @@ def create_xml_output(location: str, suburbs: list[str]) -> ET.ElementTree:
     return ET.ElementTree(root)
 
 if __name__ == "__main__":
-    suburb_data = read_suburb_data("../../data/suburbs.json")
+    suburb_data = read_suburb_data(os.path.join("..", "..", "data", "suburbs.json")) 
+    print(os.getcwd())
 
     for city, suburbs in suburb_data.items():
         xml = create_xml_output(city, suburbs)
-        folder = f'../../data/output/{city}'
-        if not path.exists(folder):
-            makedirs(folder)
-        xml.write(f'{folder}/output_{datetime.now()}.xml')
+        folder = os.path.join("..", "..", "data", "output", city)
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        xml.write(os.path.join(folder, f'output_{datetime.date.today()}.xml'), encoding="utf8")
