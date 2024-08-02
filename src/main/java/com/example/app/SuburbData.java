@@ -1,34 +1,49 @@
 package com.example.app;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class SuburbData 
-{
+public class SuburbData {
     private String name;
     private float temperature;
-    private LocalDate date;
+    private Date date;
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public SuburbData () { }
+    public SuburbData() {
+    }
 
-    public SuburbData(String name, float temperature, LocalDate date)
-    {
+    public SuburbData(String name, float temperature, Date date) {
         this.name = name;
         this.temperature = temperature;
         this.date = date;
     }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public float getTemperature() { return temperature; }
-    public void setTemperature(float temp) { this.temperature = temp; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(float temp) {
+        this.temperature = temp;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     @Override
-    public String toString()
-    {
-        return name + " was " + temperature + " on " + date.toString();
+    public String toString() {
+        return this.name + " was " + this.temperature + "C on " + sdf.format(this.date);
     }
 }

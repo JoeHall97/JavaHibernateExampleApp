@@ -8,15 +8,22 @@ public class City {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
-   
+
    private String name;
 
-   public City() {}
+   public City() {
+   }
 
-   public Long getId() { return id; }
+   public Long getId() {
+      return id;
+   }
 
-   public String getName() { return name; }
+   public String getName() {
+      return name;
+   }
 
    @Override
-   public String toString() { return name; }
+   public String toString() {
+      return name;
+   }
 }
