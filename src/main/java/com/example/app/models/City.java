@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.models;
 
 import jakarta.persistence.*;
 
@@ -21,6 +21,8 @@ public class City {
    public String getName() {
       return name;
    }
+
+   public void setName(String name) { this.name = name; }
 
    @Override
    public String toString() {

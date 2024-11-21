@@ -24,7 +24,7 @@ def create_xml_output(location: str, suburbs: list[str]) -> ET.ElementTree:
     return ET.ElementTree(root)
 
 if __name__ == "__main__":
-    suburb_data = read_suburb_data(os.path.join("..", "..", "data", "suburbs.json")) 
+    suburb_data = read_suburb_data(os.path.join("..", "..", "data", "suburbs.json"))
     print(os.getcwd())
 
     for city, suburbs in suburb_data.items():

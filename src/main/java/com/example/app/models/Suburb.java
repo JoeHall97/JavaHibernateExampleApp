@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.models;
 
 import jakarta.persistence.*;
 
@@ -31,6 +31,8 @@ public class Suburb {
     public String getName() {
         return this.name;
     }
+
+    public void setName(String newName) { this.name = newName; }
 
     @Override
     public String toString() {
