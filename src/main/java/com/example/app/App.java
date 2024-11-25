@@ -10,14 +10,33 @@ import java.util.Set;
 
 import javax.xml.parsers.*;
 
+import com.example.app.models.City;
 import com.example.app.models.SuburbData;
 import com.example.app.parsers.SuburbDataHandler;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.xml.sax.SAXException;
 
 public class App {
     private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void main(String[] args) throws IOException {
+//        parseFiles();
+        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<City> cities = session.createQuery("FROM City", City.class).getResultList();
+        for (City city : cities) {
+            System.out.println("ID: " + city.getId() + ", Name: " + city.getName());
+        }
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+    }
+
+    private static void parseFiles() throws IOException {
         String folderRoot = Paths.get("").toAbsolutePath().normalize().toString();
 
         Set<String> folders = getAllFilesInDir(Paths.get(folderRoot, "data", "output").toString(), true);
@@ -40,7 +59,10 @@ public class App {
                         System.out.println(sd.toString());
                     }
 
-                } catch (SAXException | ParserConfigurationException e) { }
+                } catch (SAXException | ParserConfigurationException e) {
+                    System.err.println(e.toString());
+                    System.exit(1);
+                }
             }
             break;
         }

@@ -11,6 +11,9 @@ public class City {
 
    private String name;
 
+   @Column(name = "created_at")
+   private java.sql.Timestamp createdOn;
+
    public City() {
    }
 

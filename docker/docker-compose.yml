@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres
+    ports:
+      - "5431:5432"
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: java_example
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
